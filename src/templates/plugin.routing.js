@@ -130,6 +130,11 @@ function switchLocalePath (locale) {
   return path
 }
 
+function switchLocalePathStatic(locale, staticPath) {
+  switchLocalePath(locale);
+  return staticPath;
+}
+
 function getRouteBaseName (givenRoute) {
   const route = givenRoute !== undefined ? givenRoute : this.route
   if (!route.name) {
@@ -178,6 +183,7 @@ const plugin = {
       methods: {
         localePath: VueInstanceProxy(localePath),
         switchLocalePath: VueInstanceProxy(switchLocalePath),
+        switchLocalePathStatic: VueInstanceProxy(switchLocalePathStatic),
         getRouteBaseName: VueInstanceProxy(getRouteBaseName)
       }
     })
@@ -189,5 +195,6 @@ export default (context) => {
   const { app } = context
   app.localePath = NuxtContextProxy(context, localePath)
   app.switchLocalePath = NuxtContextProxy(context, switchLocalePath)
+  app.switchLocalePathStatic = NuxtContextProxy(context, switchLocalePathStatic)
   app.getRouteBaseName = NuxtContextProxy(context, getRouteBaseName)
 }
